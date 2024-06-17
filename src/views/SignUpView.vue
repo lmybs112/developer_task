@@ -377,7 +377,7 @@ watch(
 
 .error_message {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   padding: var(--spacing-small);
   border-radius: var(--border-radius-medium);
   border: 1px solid var(--accent-primary-color);
