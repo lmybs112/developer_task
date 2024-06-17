@@ -35,17 +35,17 @@
         <div class="signup__input-group">
           <section>
             <div>
-              <input type="text" v-model="signupForm.firstName" />
+              <input type="text" v-model="signupForm.firstName" required />
               <label>First Name</label>
             </div>
             <div>
-              <input type="text" v-model="signupForm.lastName" />
+              <input type="text" v-model="signupForm.lastName" required />
               <label>Last Name</label>
             </div>
           </section>
           <section>
             <div>
-              <input type="text" v-model="signupForm.email" />
+              <input type="text" v-model="signupForm.email" required />
               <label>E-mail</label>
             </div>
           </section>
@@ -56,6 +56,7 @@
                 ref="password"
                 :type="showPassword ? 'text' : 'password'"
                 v-model="signupForm.password"
+                required
               />
               <span class="signup__password-toggle" @click="togglePasswordVisibility">
                 <ViewIcon :style="{ color: showPassword ? '#3c71ff' : '#ababab' }" />
@@ -82,7 +83,7 @@
           v-model="agreed"
           label="By creating an account, you agree to accept our Privacy Policy, Terms of Service and Notification settings."
         />
-        <button class="signup__submit-button" type="submit" @click="validateRequired">
+        <button class="signup__submit-button" type="submit" @click="validateRequired" formnovalidate>
           Create an Free Account!
         </button>
       </form>
