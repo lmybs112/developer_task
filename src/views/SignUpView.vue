@@ -11,12 +11,15 @@
         <h2 class="signup__subtitle">Start from free</h2>
         <h1 class="signup__title">Create an account</h1>
       </div>
-      <div class="error_message" v-show="showRequired">
+      <transition>
+        <div class="error_message" v-show="showRequired">
         <AlertIcon />
         <span class="error_message-text">
           Please complete all the required fields to proceed.
         </span>
       </div>
+      </transition>
+ 
       <div class="signup__social">
         <button class="signup__social-button signup__social-button--google">
           <GoogleIcon />

@@ -24,7 +24,7 @@
 
   /* 行高 */
   --line-height-small: 15.8px;
-  --line-height-medium: 16.8px;
+--line-height-medium: 16.8px;
   --line-height-large: 21.6px;
   --line-height-xlarge: 36px;
 
@@ -92,4 +92,19 @@ body {
   font-size: 16px;
   font-family: 'Overpass', sans-serif;
   background: var(--color-background);
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity .5s;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+
+.v-enter-to,
+.v-leave-from {
+  opacity: 1;
 }
