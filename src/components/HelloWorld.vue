@@ -5,29 +5,52 @@
       <h2 class="signup__subtitle">Start from free</h2>
       <h1 class="signup__title">Create an account</h1>
       <div class="signup__social">
-        <button class="signup__social-button signup__social-button--google">Sign up with Google</button>
-        <button class="signup__social-button signup__social-button--facebook">Sign up with Facebook</button>
+        <button class="signup__social-button signup__social-button--google">
+          Sign up with Google
+        </button>
+        <button class="signup__social-button signup__social-button--facebook">
+          Sign up with Facebook
+        </button>
       </div>
       <div class="signup__divider">Or use your email for registration</div>
       <form class="signup__form" @submit.prevent="createAccount">
         <div class="signup__input-group">
-          <input class="signup__input" type="text" placeholder="First Name" v-model="firstName" required>
-          <input class="signup__input" type="text" placeholder="Last Name" v-model="lastName" required>
+          <input
+            class="signup__input"
+            type="text"
+            placeholder="First Name"
+            v-model="firstName"
+            required
+          />
+          <input
+            class="signup__input"
+            type="text"
+            placeholder="Last Name"
+            v-model="lastName"
+            required
+          />
         </div>
-        <input class="signup__input" type="email" placeholder="E-mail" v-model="email" required>
+        <input class="signup__input" type="email" placeholder="E-mail" v-model="email" required />
         <div class="signup__password-container">
-          <input class="signup__input" type="password" placeholder="Password" v-model="password" required>
+          <input
+            class="signup__input"
+            type="password"
+            placeholder="Password"
+            v-model="password"
+            required
+          />
           <span class="signup__password-toggle" @click="togglePasswordVisibility">👁️</span>
         </div>
         <div class="signup__agreement">
-          <input type="checkbox" v-model="agreed" required>
-          <span>By creating an account, you agree to accept our Privacy Policy, Terms of Service and Notification settings.</span>
+          <input type="checkbox" v-model="agreed" required />
+          <span
+            >By creating an account, you agree to accept our Privacy Policy, Terms of Service and
+            Notification settings.</span
+          >
         </div>
         <button class="signup__submit-button" type="submit">Create a Free Account!</button>
       </form>
-      <div class="signup__login-link">
-        Already have an account? <a href="#">Log in</a>
-      </div>
+      <div class="signup__login-link">Already have an account? <a href="#">Log in</a></div>
     </div>
   </div>
 </template>
@@ -41,26 +64,26 @@ export default {
       email: '',
       password: '',
       agreed: false,
-      showPassword: false,
-    };
+      showPassword: false
+    }
   },
   methods: {
     createAccount() {
       // Handle account creation
     },
     togglePasswordVisibility() {
-      this.showPassword = !this.showPassword;
-      const passwordField = this.$refs.password;
-      passwordField.type = this.showPassword ? 'text' : 'password';
-    },
-  },
-};
+      this.showPassword = !this.showPassword
+      const passwordField = this.$refs.password
+      passwordField.type = this.showPassword ? 'text' : 'password'
+    }
+  }
+}
 </script>
 
 <style scoped>
-*{
+/* *{
   outline: 1px solid red;
-}
+} */
 .signup {
   display: flex;
   flex-direction: column;
