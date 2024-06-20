@@ -13,22 +13,16 @@
       </div>
       <transition>
         <div class="error_message" v-show="showRequired">
-        <AlertIcon />
-        <span class="error_message-text">
-          Please complete all the required fields to proceed.
-        </span>
-      </div>
+          <AlertIcon />
+          <span class="error_message-text">
+            Please complete all the required fields to proceed.
+          </span>
+        </div>
       </transition>
- 
+
       <div class="signup__social">
-        <button class="signup__social-button signup__social-button--google">
-          <GoogleIcon />
-          <span> Sign up with Google </span>
-        </button>
-        <button class="signup__social-button signup__social-button--facebook">
-          <FacebookIcon />
-          <span> Sign up with Facebook </span>
-        </button>
+        <IconButton type="google" />
+        <IconButton type="facebook" />
       </div>
       <div class="signup__divider">
         <span> Or use your email for registration </span>
@@ -54,38 +48,29 @@
           </section>
           <section>
             <div class="signup__password-container">
-              <input
-                class="signup__input signup__input--password"
-                ref="password"
-                :type="showPassword ? 'text' : 'password'"
-                v-model="signupForm.password"
-                required
-              />
+              <input class="signup__input signup__input--password" ref="password"
+                :type="showPassword ? 'text' : 'password'" v-model="signupForm.password" required />
               <span class="signup__password-toggle" @click="togglePasswordVisibility">
-                <ViewIcon :style="{ color: showPassword ? '#3c71ff' : '#ababab' }" />
+                <ViewIcon :style="getViewIconStyle" />
               </span>
               <label>Password</label>
             </div>
           </section>
           <div class="validate__password-container">
-            <div lass="validate__password--length">
-              <CheckIcon :style="{ color: isValidPasswordLength ? '#4AE7A5' : '#ababab' }" />
-              <small :style="{ color: isValidPasswordLength ? '#000' : '#ababab' }">
-                8 Characters min.</small
-              >
+            <div lass="validate__password validate__password--length">
+              <CheckIcon :style="getValidationStyle('length', 'icon')" />
+              <small :style="getValidationStyle('length', 'text')">
+                8 Characters min.</small>
             </div>
-            <div lass="validate__password--length">
-              <CheckIcon :style="{ color: isValidPasswordHasNumber ? '#4AE7A5' : '#ababab' }" />
-              <small :style="{ color: isValidPasswordHasNumber ? '#000' : '#ababab' }">
-                One number</small
-              >
+            <div lass="validate__password validate__password--number">
+              <CheckIcon :style="getValidationStyle('hasNumber', 'icon')" />
+              <small :style="getValidationStyle('hasNumber', 'text')">
+                One number</small>
             </div>
           </div>
         </div>
-        <CustomCheckbox
-          v-model="agreed"
-          label="By creating an account, you agree to accept our Privacy Policy, Terms of Service and Notification settings."
-        />
+        <CustomCheckbox v-model="agreed"
+          label="By creating an account, you agree to accept our Privacy Policy, Terms of Service and Notification settings." />
         <button class="signup__submit-button" type="submit" @click="validateRequired" formnovalidate>
           Create an Free Account!
         </button>
@@ -99,9 +84,8 @@
 
 <script setup>
 import CustomCheckbox from '@/components/checkboxes/CustomCheckbox.vue'
+import IconButton from '@/components/buttons/IconButton.vue'
 import BackIcon from '@/components/icons/IconBack.vue'
-import FacebookIcon from '@/components/icons/IconFacebook.vue'
-import GoogleIcon from '@/components/icons/IconGoogle.vue'
 import ViewIcon from '@/components/icons/IconView.vue'
 import CheckIcon from '@/components/icons/IconCheck.vue'
 import AlertIcon from '@/components/icons/IconAlert.vue'
@@ -122,6 +106,31 @@ const createAccount = () => {
   // Handle account creation
 }
 
+const getViewIconStyle = () => {
+  return {
+    color: showPassword.value ? '#3c71ff' : '#ababab',
+  };
+};
+
+const getValidationStyle = (validationType, elementType) => {
+  const validations = {
+    length: isValidPasswordLength.value,
+    hasNumber: isValidPasswordHasNumber.value
+  };
+
+  const isValid = validations[validationType];
+
+  const styles = {
+    icon: {
+      color: isValid ? '#4AE7A5' : '#ababab',
+    },
+    text: {
+      color: isValid ? '#000' : '#ababab',
+    }
+  };
+  return styles[elementType] || {};
+};
+
 const togglePasswordVisibility = () => {
   showPassword.value = !showPassword.value
   const passwordField = document.querySelector('.signup__input--password')
@@ -139,19 +148,19 @@ const validatePasswordIncludeNumber = () => {
 
 const validateRequired = () => {
   const { firstName, lastName, email, password } = signupForm
-  if(!agreed.value){
+  if (!agreed.value) {
     return showRequired.value = true
   }
   showRequired.value = ![firstName, lastName, email, password].every(
     (field) => field.trim() !== ''
   )
-console.log('validateRequired')
+  console.log('validateRequired')
   return showRequired.value
 }
 
 watch(
   () => signupForm.password,
-  (newPassword) => {
+  () => {
     validatePasswordLength()
     validatePasswordIncludeNumber()
   }
@@ -232,17 +241,7 @@ watch(
   column-gap: var(--spacing-large);
 }
 
-.signup__social-button {
-  flex: 1;
-  padding: var(--spacing-medium) 0;
-  display: flex;
-  justify-content: center;
-  column-gap: var(--spacing-small);
-  border-radius: var(--border-radius-medium);
-  border: 1px solid var(--primary-color);
-  cursor: pointer;
-  background-color: var(--vt-c-white);
-}
+
 
 .signup__divider {
   display: flex;
@@ -252,7 +251,7 @@ watch(
   line-height: var(--line-height-medium);
 }
 
-.signup__divider > span:nth-child(2) {
+.signup__divider>span:nth-child(2) {
   height: 1px;
   flex-grow: 1;
   border: 1px solid var(--vt-c-black);
@@ -271,24 +270,24 @@ watch(
   row-gap: var(--spacing-medium);
 }
 
-.signup__input-group > section > div {
+.signup__input-group>section>div {
   position: relative;
   display: flex;
   width: 100%;
   column-gap: var(--spacing-large);
 }
 
-.signup__input-group > section {
+.signup__input-group>section {
   gap: var(--spacing-large);
   display: flex;
   width: 100%;
 }
 
-.signup__input-group > section:first-child > div > input {
+.signup__input-group>section:first-child>div>input {
   width: 100%;
 }
 
-.signup__input-group > section > div > label {
+.signup__input-group>section>div>label {
   padding: var(--spacing-medium);
   position: absolute;
   top: 0;
@@ -301,7 +300,7 @@ watch(
   line-height: var(--line-height-medium);
 }
 
-.signup__input-group > section > div > input {
+.signup__input-group>section>div>input {
   flex: 1;
   padding: var(--spacing-medium);
   border-radius: var(--border-radius-medium);
@@ -309,12 +308,12 @@ watch(
   background-color: var(--background-secondary-color);
 }
 
-.signup__input-group > section > div > input:focus {
+.signup__input-group>section>div>input:focus {
   outline: 0;
 }
 
-.signup__input-group > section > div > input:focus ~ label,
-.signup__input-group > section > div > input:valid ~ label {
+.signup__input-group>section>div>input:focus~label,
+.signup__input-group>section>div>input:valid~label {
   font-size: 0.75em;
   color: #999;
   top: -12px;
@@ -345,23 +344,12 @@ watch(
   cursor: pointer;
 }
 
-.signup__agreement {
-  display: flex;
-  align-items: flex-start;
-  font-size: 12px;
-  color: #333;
-}
-
-.signup__agreement input {
-  margin-right: 10px;
-}
-
 .signup__submit-button {
   padding: var(--spacing-medium) 0;
   background-color: var(--primary-color);
   color: var(--vt-c-white);
   border: none;
-  border-radius: 4px;
+  border-radius: var(--border-radius-medium);
   cursor: pointer;
 }
 
@@ -386,13 +374,13 @@ watch(
   border-radius: var(--border-radius-medium);
   border: 1px solid var(--accent-primary-color);
   background: var(--accent-secondary-color);
-  column-gap:var(--spacing-small);
+  column-gap: var(--spacing-small);
   letter-spacing: 0.05em;
 }
 
 .error_message-text {
-  font-size: 16px;
-  line-height: 24px;
+  font-size: var(--font-size-base);
+  line-height: var(--line-heigh-base);
   font-weight: 400;
 }
 

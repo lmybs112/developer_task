@@ -19,13 +19,15 @@
   /* 字體大小 */
   --font-size-small: 13px;
   --font-size-medium: 14px;
+  --font-size-base: 16px;
   --font-size-large: 18px;
   --font-size-xlarge: 30px;
 
   /* 行高 */
   --line-height-small: 15.8px;
---line-height-medium: 16.8px;
+  --line-height-medium: 16.8px;
   --line-height-large: 21.6px;
+  --line-height-base: 21.6px;
   --line-height-xlarge: 36px;
 
   /* 圓角 */
