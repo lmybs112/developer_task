@@ -98,11 +98,11 @@ const createAccount = () => {
   // Handle account creation
 }
 
-const getViewIconStyle = () => {
+const getViewIconStyle = computed(() => {
   return {
     color: showPassword.value ? '#3c71ff' : '#ababab',
   };
-};
+});
 
 const getValidation = (validationType) => {
   const validations = {
