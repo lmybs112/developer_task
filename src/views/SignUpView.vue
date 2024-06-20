@@ -21,8 +21,8 @@
       </transition>
 
       <div class="signup__social">
-        <IconButton type="google" />
-        <IconButton type="facebook" />
+        <SocialIconButton type="google" />
+        <SocialIconButton type="facebook" />
       </div>
       <div class="signup__divider">
         <span> Or use your email for registration </span>
@@ -57,16 +57,8 @@
             </div>
           </section>
           <div class="validate__password-container">
-            <div lass="validate__password validate__password--length">
-              <CheckIcon :style="getValidationStyle('length', 'icon')" />
-              <small :style="getValidationStyle('length', 'text')">
-                8 Characters min.</small>
-            </div>
-            <div lass="validate__password validate__password--number">
-              <CheckIcon :style="getValidationStyle('hasNumber', 'icon')" />
-              <small :style="getValidationStyle('hasNumber', 'text')">
-                One number</small>
-            </div>
+            <ValidateMessage type="length" :isValid="getValidation('length')" />
+            <ValidateMessage type="hasNumber" :isValid="getValidation('hasNumber')" />
           </div>
         </div>
         <CustomCheckbox v-model="agreed"
@@ -84,7 +76,8 @@
 
 <script setup>
 import CustomCheckbox from '@/components/checkboxes/CustomCheckbox.vue'
-import IconButton from '@/components/buttons/IconButton.vue'
+import ValidateMessage from '@/components/messages/ValidateMessage.vue'
+import SocialIconButton from '@/components/buttons/SocialIconButton.vue'
 import BackIcon from '@/components/icons/IconBack.vue'
 import ViewIcon from '@/components/icons/IconView.vue'
 import CheckIcon from '@/components/icons/IconCheck.vue'
@@ -112,24 +105,15 @@ const getViewIconStyle = () => {
   };
 };
 
-const getValidationStyle = (validationType, elementType) => {
+const getValidation = (validationType) => {
   const validations = {
     length: isValidPasswordLength.value,
     hasNumber: isValidPasswordHasNumber.value
   };
-
   const isValid = validations[validationType];
 
-  const styles = {
-    icon: {
-      color: isValid ? '#4AE7A5' : '#ababab',
-    },
-    text: {
-      color: isValid ? '#000' : '#ababab',
-    }
-  };
-  return styles[elementType] || {};
-};
+  return isValid
+}
 
 const togglePasswordVisibility = () => {
   showPassword.value = !showPassword.value
@@ -329,11 +313,6 @@ watch(
   display: flex;
   align-items: center;
   column-gap: var(--spacing-medium);
-}
-
-.validate__password--length {
-  display: flex;
-  align-items: center;
 }
 
 .signup__password-toggle {
