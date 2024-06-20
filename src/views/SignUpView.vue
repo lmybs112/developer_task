@@ -80,7 +80,6 @@ import ValidateMessage from '@/components/messages/ValidateMessage.vue'
 import SocialIconButton from '@/components/buttons/SocialIconButton.vue'
 import BackIcon from '@/components/icons/IconBack.vue'
 import ViewIcon from '@/components/icons/IconView.vue'
-import CheckIcon from '@/components/icons/IconCheck.vue'
 import AlertIcon from '@/components/icons/IconAlert.vue'
 
 const agreed = ref(false)
@@ -192,7 +191,7 @@ watch(
   font-size: var(--font-size-medium);
   line-height: var(--line-height-medium);
 }
-
+.signup__login-link strong::after,
 .signup__back-link::after {
   content: '';
   position: absolute;
@@ -203,7 +202,7 @@ watch(
   background: var(--primary-color);
   transition: all 0.3s ease;
 }
-
+.signup__login-link strong:hover::after,
 .signup__back-link:hover::after {
   width: 100%;
 }
@@ -224,8 +223,6 @@ watch(
   justify-content: space-between;
   column-gap: var(--spacing-large);
 }
-
-
 
 .signup__divider {
   display: flex;
@@ -343,7 +340,9 @@ watch(
   color: var(--primary-color);
   line-height: var(--line-height-small);
   font-weight: 700;
+  width: fit-content;
   text-decoration: none;
+  position: relative;
 }
 
 .error_message {
